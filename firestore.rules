@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidEvent(data, userId) {
+      return data.id is string
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.date is string && data.date.size() <= 50
+        && data.userId is string && data.userId == userId;
+    }
+
+    function isValidTask(data, userId) {
+      return data.id is string
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.isCompleted is bool
+        && data.userId is string && data.userId == userId;
+    }
+
+    function isValidNote(data, userId) {
+      return data.id is string
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.body is string && data.body.size() <= 50000
+        && data.userId is string && data.userId == userId;
+    }
+
+    function isValidContact(data, userId) {
+      return data.id is string
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.userId is string && data.userId == userId;
+    }
+
+    function isValidSetting(data, userId) {
+      return data.userId is string && data.userId == userId;
+    }
+
+    function isValidChatMessage(data, userId) {
+      return data.id is string
+        && data.role is string && (data.role == 'user' || data.role == 'assistant')
+        && data.content is string && data.content.size() <= 50000
+        && data.userId is string && data.userId == userId;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /events/{eventId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidEvent(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
+
+      match /tasks/{taskId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidTask(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
+
+      match /notes/{noteId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidNote(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
+
+      match /contacts/{contactId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidContact(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
+
+      match /settings/{settingId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidSetting(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
+
+      match /chat/{messageId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidChatMessage(incoming(), userId);
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "entities": {
+    "PastoralEvent": {
+      "title": "PastoralEvent",
+      "description": "An event, celebration or pastoral activity on the calendar.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "location": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "attendance": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "date", "userId"]
+    },
+    "PastoralTask": {
+      "title": "PastoralTask",
+      "description": "A task or pastoral duty with due date and priority.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "priority": { "type": "string" },
+        "isCompleted": { "type": "boolean" },
+        "notes": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "userId"]
+    },
+    "PastoralNote": {
+      "title": "PastoralNote",
+      "description": "A pastoral note, dynamic, prayer, homily outline or meeting note.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "updatedAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "userId"]
+    },
+    "PastoralContact": {
+      "title": "PastoralContact",
+      "description": "A member, catechist, volunteer, or community contact.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "group": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "notes": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "name", "userId"]
+    },
+    "PastoralSetting": {
+      "title": "PastoralSetting",
+      "description": "User preferences for parish/school name and theme.",
+      "type": "object",
+      "properties": {
+        "pastorName": { "type": "string" },
+        "schoolName": { "type": "string" },
+        "theme": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["userId"]
+    },
+    "PastoralChatMessage": {
+      "title": "PastoralChatMessage",
+      "description": "A chat message exchanged with the pastoral AI assistant.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "role": { "type": "string" },
+        "content": { "type": "string" },
+        "actionType": { "type": "string" },
+        "actionTitle": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "role", "content", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/events/{eventId}": {
+      "schema": { "$ref": "#/entities/PastoralEvent" },
+      "description": "Collection of events owned by the user."
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/PastoralTask" },
+      "description": "Collection of tasks owned by the user."
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/PastoralNote" },
+      "description": "Collection of notes and ideas owned by the user."
+    },
+    "/users/{userId}/contacts/{contactId}": {
+      "schema": { "$ref": "#/entities/PastoralContact" },
+      "description": "Collection of community contacts owned by the user."
+    },
+    "/users/{userId}/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/PastoralSetting" },
+      "description": "Settings document for the user."
+    },
+    "/users/{userId}/chat/{messageId}": {
+      "schema": { "$ref": "#/entities/PastoralChatMessage" },
+      "description": "History of messages with the AI assistant."
+    }
+  }
+}

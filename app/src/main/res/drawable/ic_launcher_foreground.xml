@@ -1,0 +1,52 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Radiant Glow behind cross -->
+    <path
+        android:fillColor="#30F59E0B"
+        android:pathData="M54,22 L56,36 L68,34 L58,42 L66,52 L54,46 L42,52 L50,42 L40,34 L52,36 Z" />
+
+    <!-- Pastoral Open Book / Base Foundation -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M34,68 C34,68 42,66 53,70 L53,80 C42,76 34,78 34,78 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M74,68 C74,68 66,66 55,70 L55,80 C66,76 74,78 74,78 Z" />
+    <path
+        android:fillColor="#CBD5E1"
+        android:pathData="M53,69 L55,69 L55,81 L53,81 Z" />
+
+    <!-- Latin Cross - Warm Gold Shadow & Body -->
+    <!-- Vertical beam -->
+    <path
+        android:fillColor="#D97706"
+        android:pathData="M51,26 L57,26 L57,69 L51,69 Z" />
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M51.5,27 L55.5,27 L55.5,67 L51.5,67 Z" />
+
+    <!-- Horizontal beam -->
+    <path
+        android:fillColor="#D97706"
+        android:pathData="M40,37 L68,37 L68,43 L40,43 Z" />
+    <path
+        android:fillColor="#FCD34D"
+        android:pathData="M41,38 L67,38 L67,41.5 L41,41.5 Z" />
+
+    <!-- Center diamond emblem -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,37 L57,40 L54,43 L51,40 Z" />
+
+    <!-- Olive leaves on left and right -->
+    <path
+        android:fillColor="#6EE7B7"
+        android:pathData="M35,66 C32,62 30,57 32,54 C35,56 36,60 35,66 Z" />
+    <path
+        android:fillColor="#6EE7B7"
+        android:pathData="M73,66 C76,62 78,57 76,54 C73,56 72,60 73,66 Z" />
+</vector>
